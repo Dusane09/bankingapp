@@ -22,16 +22,16 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/django-app:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/django-app:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
 aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
 aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-aws_region: us-east-1
+aws_region: us-south-1
 
       - name: Update EKS deployment
         run: |
-kubectl set image deployment/django-app django-app=${{ secrets.DOCKER_USERNAME }}/django-app:latest --record
+kubectl set image deployment/djangoapp djangoapp=${{ secrets.DOCKER_USERNAME }}/djangoapp:latest --record
