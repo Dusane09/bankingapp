@@ -37,4 +37,4 @@ jobs:
 
       - name: Update EKS deployment
         run: |
-          kubectl set image deployment/djangoapp djangoapp=${{ secrets.DOCKER_USERNAME }}/djangoapp:latest --record
+          kubectl set image deployment/django-deployment django-deployment=${{ secrets.DOCKER_USERNAME }}/djangoapp:latest --record
