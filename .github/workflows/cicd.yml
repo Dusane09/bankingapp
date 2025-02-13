@@ -22,8 +22,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          sudo docker build -t ${{ secrets.DOCKER_USERNAME }}/chaitanyad29/djangoapp:latest .
-          sudo docker push ${{ secrets.DOCKER_USERNAME }}/chaitanyad29/djangoapp:latest
+          sudo docker build -t ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest .
+          sudo docker push ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -37,4 +37,4 @@ jobs:
 
       - name: Update EKS deployment
         run: |
-          kubectl set image deployment/chaitanyad29/djangoapp chaitanyad29/djangoapp=${{ secrets.DOCKER_USERNAME }}/djangoapp:latest --record
+          kubectl set image deployment/djangoapp djangoapp=${{ secrets.DOCKER_USERNAME }}/djangoapp:latest --record
