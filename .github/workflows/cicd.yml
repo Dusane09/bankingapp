@@ -32,6 +32,9 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ap-south-1
 
+      - name: Configure kubectl
+        run: aws eks update-kubeconfig --region ap-south-1 --name django-cluster
+
       - name: Update EKS deployment
         run: |
           kubectl set image deployment/djangoapp djangoapp=${{ secrets.DOCKER_USERNAME }}/djangoapp:latest --record
