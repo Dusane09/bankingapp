@@ -1,15 +1,24 @@
+# Use official Python image
 FROM python:3.10
 
+# Set work directory
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
+# Copy dependencies first (optimizes caching)
+COPY requirements.txt .
 
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the application
 COPY . .
 
-RUN python3 manage.py makemigrations
+# Expose the correct port
+EXPOSE 8000
 
-RUN python3 manage.py migrate
+# Use a non-root user (security best practice)
+RUN useradd -m appuser
+USER appuser
 
-CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "banking_system.wsgi:application" ]
+# Command to run the application
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "banking_system.wsgi:application"]
