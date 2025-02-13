@@ -22,8 +22,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          sudo docker build -t ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest .
-          sudo docker push ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/djangoapp:latest
 
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
